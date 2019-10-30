@@ -21,9 +21,9 @@ public class Training {
     ArrayList<Date> dates;
 
     @ColumnInfo(name = "setsOfExercises")
-    ArrayList<Pair<Exercise, Integer>> setsOfExercises;
+    ArrayList<Plan> setsOfExercises;
 
-    public Training(String name, String description, ArrayList<Date> dates, ArrayList<Pair<Exercise, Integer>> setsOfExercises) {
+    public Training(String name, String description, ArrayList<Date> dates, ArrayList<Plan> setsOfExercises) {
         this.name = name;
         this.description = description;
         this.dates = dates;
@@ -54,11 +54,11 @@ public class Training {
         this.dates = dates;
     }
 
-    public ArrayList<Pair<Exercise, Integer>> getSetsOfExercises() {
+    public ArrayList<Plan> getSetsOfExercises() {
         return setsOfExercises;
     }
 
-    public void setSetsOfExercises(ArrayList<Pair<Exercise, Integer>> setsOfExercises) {
+    public void setSetsOfExercises(ArrayList<Plan> setsOfExercises) {
         this.setsOfExercises = setsOfExercises;
     }
 }
