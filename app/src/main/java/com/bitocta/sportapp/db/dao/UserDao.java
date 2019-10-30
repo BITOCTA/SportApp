@@ -1,4 +1,7 @@
 package com.bitocta.sportapp.db.dao;
 
-public class UserDao {
+import androidx.room.Dao;
+
+@Dao
+public interface UserDao {
 }
