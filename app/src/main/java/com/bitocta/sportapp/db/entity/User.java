@@ -1,5 +1,7 @@
 package com.bitocta.sportapp.db.entity;
 
+import android.util.Pair;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 
@@ -27,9 +29,12 @@ public class User {
     @ColumnInfo(name = "activeTraining")
     Training activeTraining;
 
-
     @ColumnInfo(name = "plans")
     ArrayList<Training> plans;
+
+    @ColumnInfo(name = "history")
+    ArrayList<Pair<Training,Date>> history;
+
 
     public User(String name, String sex, double weight, double height, Date dateOfBirth) {
         this.name = name;
@@ -93,5 +98,13 @@ public class User {
 
     public void setPlans(ArrayList<Training> plans) {
         this.plans = plans;
+    }
+
+    public ArrayList<Pair<Training, Date>> getHistory() {
+        return history;
+    }
+
+    public void setHistory(ArrayList<Pair<Training, Date>> history) {
+        this.history = history;
     }
 }
