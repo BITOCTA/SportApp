@@ -7,24 +7,24 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.bitocta.sportapp.db.entity.Plan;
 import com.bitocta.sportapp.db.entity.Training;
-import com.bitocta.sportapp.db.entity.User;
 
 import java.util.List;
 
 @Dao
-public interface UserDao {
-
-    @Query("SELECT * FROM user")
-    LiveData<List<User>> getAll();
+public interface PlanDao {
+    @Query("SELECT * FROM `plan`")
+    LiveData<List<Plan>> getAll();
 
     @Delete
-    void delete(User user);
+    void delete(Plan plan);
 
     @Insert
-    void insert(User user);
+    void insert(Plan plan);
 
     @Update
-    void update(User user);
+    void update(Plan plan);
 
 }
+
