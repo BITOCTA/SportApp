@@ -2,9 +2,13 @@ package com.bitocta.sportapp.db.entity;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 @Entity
 public class Exercise {
+
+    @PrimaryKey(autoGenerate = true)
+    public int eid;
 
     @ColumnInfo(name = "name")
     String name;
@@ -81,13 +85,13 @@ public class Exercise {
         this.equipment = equipment;
     }
 
-    enum ExerciseLevel {
+    public enum ExerciseLevel {
         BEGINNER,
         INTERMEDIATE,
         PROFESSIONAL
     }
 
-    enum ExerciseMuscles {
+    public enum ExerciseMuscles {
         CHEST,
         FOREARMS,
         LATS,
@@ -107,7 +111,7 @@ public class Exercise {
         ABDUCTORS
     }
 
-    enum ExerciseType{
+    public enum ExerciseType{
         CARDIO,
         WEIGHTLIFTING,
         PLYOMETRICS,
@@ -117,7 +121,7 @@ public class Exercise {
     }
 
 
-    enum ExerciseEquipment{
+    public enum ExerciseEquipment{
         BANDS,
         FOAM_ROLL,
         BARBELL,

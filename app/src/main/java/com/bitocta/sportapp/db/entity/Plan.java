@@ -1,14 +1,19 @@
 package com.bitocta.sportapp.db.entity;
 
 import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
 import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
 
 @Entity
 public class Plan {
 
-    @ColumnInfo(name = "exercise")
+    @PrimaryKey(autoGenerate = true)
+    public int pid;
+
+    @Embedded
     Exercise exercise;
 
     @ColumnInfo(name = "sets")

@@ -7,8 +7,10 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.bitocta.sportapp.converter.Converter;
 import com.bitocta.sportapp.db.dao.ExerciseDao;
 import com.bitocta.sportapp.db.dao.PlanDao;
 import com.bitocta.sportapp.db.dao.TrainingDao;
@@ -19,6 +21,7 @@ import com.bitocta.sportapp.db.entity.Training;
 import com.bitocta.sportapp.db.entity.User;
 
 @Database(entities = {Exercise.class, User.class, Plan.class, Training.class}, version = 1)
+@TypeConverters({Converter.class})
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract ExerciseDao exerciseDao();

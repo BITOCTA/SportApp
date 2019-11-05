@@ -3,7 +3,9 @@ package com.bitocta.sportapp.db.entity;
 import android.util.Pair;
 
 import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
 import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,7 +13,10 @@ import java.util.Date;
 @Entity
 public class Training {
 
-    @ColumnInfo(name = "name")
+    @PrimaryKey(autoGenerate = true)
+    public int tid;
+
+    @ColumnInfo(name = "trainingname")
     String name;
 
     @ColumnInfo(name = "description")
