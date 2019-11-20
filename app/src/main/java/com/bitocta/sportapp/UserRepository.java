@@ -2,6 +2,7 @@ package com.bitocta.sportapp;
 
 import android.os.AsyncTask;
 
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.bitocta.sportapp.db.AppDatabase;
@@ -10,7 +11,7 @@ import com.bitocta.sportapp.db.entity.User;
 
 import java.util.List;
 
-public class UserRepository {
+public class UserRepository  {
 
     private static UserRepository instance;
     private final AppDatabase database;
@@ -35,56 +36,21 @@ public class UserRepository {
         return instance;
     }
 
-
-
     public LiveData<List<User>> getAllUsers() {
         return mAllUsers;
     }
 
+    public User findUserWithName(String search){return mUserDao.findUserWithName(search);}
+
     public void insert (User user) {
-        new insertAsyncTask(mUserDao).execute(user);
+        mUserDao.insert(user);
     }
-    public void delete (User user) { new deleteAsyncTask(mUserDao).execute(user);}
-    public void update (User user) {new updateAsyncTask(mUserDao).execute(user);}
+    public void delete (User user) { mUserDao.delete(user);}
 
-    private static class insertAsyncTask extends AsyncTask<User, Void, Void> {
 
-        private UserDao mAsyncTaskDao;
 
-        insertAsyncTask(UserDao dao) {
-            mAsyncTaskDao = dao;
-        }
 
-        @Override
-        protected Void doInBackground(final User... params) {
-            mAsyncTaskDao.insert(params[0]);
-            return null;
-        }
-    }
 
-    private static class deleteAsyncTask extends AsyncTask<User, Void, Void>{
-        private UserDao mAsyncTaskDao;
-
-        deleteAsyncTask(UserDao dao) {mAsyncTaskDao = dao;}
-
-        @Override
-        protected Void doInBackground(final User... params){
-            mAsyncTaskDao.delete(params[0]);
-            return null;
-        }
-    }
-
-    private static class updateAsyncTask extends AsyncTask<User, Void, Void> {
-        private UserDao mAsyncTaskDao;
-
-        updateAsyncTask(UserDao dao) { mAsyncTaskDao = dao;}
-
-        @Override
-        protected Void doInBackground(final User... params){
-            mAsyncTaskDao.update(params[0]);
-            return null;
-        }
-    }
 }
 
 

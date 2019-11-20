@@ -1,27 +1,44 @@
 package com.bitocta.sportapp.ui;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.bitocta.sportapp.R;
+import com.bitocta.sportapp.db.AppDatabase;
+import com.bitocta.sportapp.db.entity.User;
+import com.bitocta.sportapp.viewmodel.UserViewModel;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.List;
+
+import static com.bitocta.sportapp.ui.StartFragment.userViewModel;
 
 
 public class ProgressFragment extends Fragment {
 
-    private DrawerLayout mDrawerLayout;
-    private NavigationView nv;
-    private Toolbar toolbar;
+
+
+    private UserViewModel userViewModel;
 
 
     public ProgressFragment() {
@@ -39,10 +56,6 @@ public class ProgressFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(getActivity(), mDrawerLayout, toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        mDrawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
     }
 
 
@@ -56,13 +69,9 @@ public class ProgressFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_progress, container, false);
 
-
-        mDrawerLayout = view.findViewById(R.id.drawer_layout);
-        nv = view.findViewById(R.id.navigation);
-        toolbar = view.findViewById(R.id.z_toolbar);
-
         return view;
     }
+
 
 
 }

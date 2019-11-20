@@ -20,7 +20,7 @@ import com.bitocta.sportapp.db.entity.Plan;
 import com.bitocta.sportapp.db.entity.Training;
 import com.bitocta.sportapp.db.entity.User;
 
-@Database(entities = {Exercise.class, User.class, Plan.class, Training.class}, version = 1)
+@Database(entities = {Exercise.class, User.class, Plan.class, Training.class}, version = 1, exportSchema = false)
 @TypeConverters({Converter.class})
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -31,13 +31,12 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private static volatile AppDatabase instance;
 
-
     public static final String DATABASE_NAME = "database";
 
     public static AppDatabase getDatabase(final Context context) {
 
         instance = Room.databaseBuilder(context.getApplicationContext(),
-                AppDatabase.class, DATABASE_NAME).fallbackToDestructiveMigration().addCallback(sRoomDatabaseCallback)
+                AppDatabase.class, DATABASE_NAME).fallbackToDestructiveMigration().allowMainThreadQueries().addCallback(sRoomDatabaseCallback)
                 .build();
 
         return instance;

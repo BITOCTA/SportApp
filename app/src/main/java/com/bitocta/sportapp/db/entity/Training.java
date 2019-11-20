@@ -10,7 +10,10 @@ import androidx.room.PrimaryKey;
 import java.util.ArrayList;
 import java.util.Date;
 
+import lombok.Data;
+
 @Entity
+@Data
 public class Training {
 
     @PrimaryKey(autoGenerate = true)
@@ -22,48 +25,22 @@ public class Training {
     @ColumnInfo(name = "description")
     String description;
 
+    @ColumnInfo(name = "image")
+    String image_path;
+
     @ColumnInfo(name = "dates")
     ArrayList<Date> dates;
 
     @ColumnInfo(name = "setsOfExercises")
-    ArrayList<Plan> setsOfExercises;
+   ArrayList<Plan> setsOfExercises;
 
-    public Training(String name, String description, ArrayList<Date> dates, ArrayList<Plan> setsOfExercises) {
+    public Training(String name, String description, String image_path, ArrayList<Date> dates, ArrayList<Plan> setsOfExercises) {
         this.name = name;
         this.description = description;
         this.dates = dates;
         this.setsOfExercises = setsOfExercises;
+        this.image_path = image_path;
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public ArrayList<Date> getDates() {
-        return dates;
-    }
-
-    public void setDates(ArrayList<Date> dates) {
-        this.dates = dates;
-    }
-
-    public ArrayList<Plan> getSetsOfExercises() {
-        return setsOfExercises;
-    }
-
-    public void setSetsOfExercises(ArrayList<Plan> setsOfExercises) {
-        this.setsOfExercises = setsOfExercises;
-    }
 }

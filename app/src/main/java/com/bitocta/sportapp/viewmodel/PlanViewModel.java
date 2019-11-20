@@ -30,5 +30,5 @@ public class PlanViewModel extends AndroidViewModel {
 
     public void insert(Plan plan) { mRepository.insert(plan); }
 
-    public void update(Plan plan) {mRepository.update(plan);}
+
 }

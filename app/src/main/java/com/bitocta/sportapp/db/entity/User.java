@@ -10,7 +10,10 @@ import androidx.room.PrimaryKey;
 import java.util.ArrayList;
 import java.util.Date;
 
+import lombok.Data;
+
 @Entity
+@Data
 public class User {
 
     @PrimaryKey(autoGenerate = true)
@@ -31,6 +34,9 @@ public class User {
     @ColumnInfo(name = "dateOfBirth")
     Date dateOfBirth;
 
+    @ColumnInfo(name = "photo")
+    String image_path;
+
     @Embedded
     Training activeTraining;
 
@@ -41,75 +47,13 @@ public class User {
     ArrayList<Pair<Training,Date>> history;
 
 
-    public User(String name, String sex, double weight, double height, Date dateOfBirth) {
+    public User(String name, String sex, double weight, double height, Date dateOfBirth, String image_path) {
         this.name = name;
         this.sex = sex;
         this.weight = weight;
         this.height = height;
         this.dateOfBirth = dateOfBirth;
+        this.image_path = image_path;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
-    public double getWeight() {
-        return weight;
-    }
-
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
-
-    public double getHeight() {
-        return height;
-    }
-
-    public void setHeight(double height) {
-        this.height = height;
-    }
-
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public Training getActiveTraining() {
-        return activeTraining;
-    }
-
-    public void setActiveTraining(Training activeTraining) {
-        this.activeTraining = activeTraining;
-    }
-
-    public ArrayList<Training> getPlans() {
-        return plans;
-    }
-
-    public void setPlans(ArrayList<Training> plans) {
-        this.plans = plans;
-    }
-
-    public ArrayList<Pair<Training, Date>> getHistory() {
-        return history;
-    }
-
-    public void setHistory(ArrayList<Pair<Training, Date>> history) {
-        this.history = history;
-    }
 }

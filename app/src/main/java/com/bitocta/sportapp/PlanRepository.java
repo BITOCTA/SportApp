@@ -47,49 +47,9 @@ public class PlanRepository {
         return mAllPlans;
     }
 
-    public void insert (Plan exercise) {
-        new PlanRepository.insertAsyncTask(mPlanDao).execute(exercise);
+    public void insert (Plan plan) {
+        mPlanDao.insert(plan);
     }
-    public void delete (Plan plan) { new PlanRepository.deleteAsyncTask(mPlanDao).execute(plan);}
-    public void update (Plan plan) {new PlanRepository.updateAsyncTask(mPlanDao).execute(plan);}
-
-    private static class insertAsyncTask extends AsyncTask<Plan, Void, Void> {
-
-        private PlanDao mAsyncTaskDao;
-
-        insertAsyncTask(PlanDao dao) {
-            mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(final Plan... params) {
-            mAsyncTaskDao.insert(params[0]);
-            return null;
-        }
-    }
-
-    private static class deleteAsyncTask extends AsyncTask<Plan, Void, Void>{
-        private PlanDao mAsyncTaskDao;
-
-        deleteAsyncTask(PlanDao dao) {mAsyncTaskDao = dao;}
-
-        @Override
-        protected Void doInBackground(final Plan... params){
-            mAsyncTaskDao.delete(params[0]);
-            return null;
-        }
-    }
-
-    private static class updateAsyncTask extends AsyncTask<Plan, Void, Void> {
-        private PlanDao mAsyncTaskDao;
-
-        updateAsyncTask(PlanDao dao) { mAsyncTaskDao = dao;}
-
-        @Override
-        protected Void doInBackground(final Plan... params){
-            mAsyncTaskDao.update(params[0]);
-            return null;
-        }
-    }
+    public void delete (Plan plan) { mPlanDao.delete(plan);}
 
 }

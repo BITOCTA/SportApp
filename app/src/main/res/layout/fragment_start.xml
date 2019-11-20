@@ -11,6 +11,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,6 +21,9 @@
         android:textColor="@color/titleColor"
         android:layout_marginTop="8dp"
         />
+
+
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_user_name"

@@ -9,6 +9,7 @@ import com.bitocta.sportapp.db.dao.ExerciseDao;
 import com.bitocta.sportapp.db.dao.TrainingDao;
 import com.bitocta.sportapp.db.entity.Exercise;
 import com.bitocta.sportapp.db.entity.Training;
+import com.bitocta.sportapp.db.entity.User;
 
 import java.util.List;
 
@@ -44,47 +45,7 @@ public class TrainingRepository {
     }
 
     public void insert (Training training) {
-        new TrainingRepository.insertAsyncTask(mTrainingDao).execute(training);
+        mTrainingDao.insert(training);
     }
-    public void delete (Training training) { new TrainingRepository.deleteAsyncTask(mTrainingDao).execute(training);}
-    public void update (Training training) {new TrainingRepository.updateAsyncTask(mTrainingDao).execute(training);}
-
-    private static class insertAsyncTask extends AsyncTask<Training, Void, Void> {
-
-        private TrainingDao mAsyncTaskDao;
-
-        insertAsyncTask(TrainingDao dao) {
-            mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(final Training... params) {
-            mAsyncTaskDao.insert(params[0]);
-            return null;
-        }
-    }
-
-    private static class deleteAsyncTask extends AsyncTask<Training, Void, Void>{
-        private TrainingDao mAsyncTaskDao;
-
-        deleteAsyncTask(TrainingDao dao) {mAsyncTaskDao = dao;}
-
-        @Override
-        protected Void doInBackground(final Training... params){
-            mAsyncTaskDao.delete(params[0]);
-            return null;
-        }
-    }
-
-    private static class updateAsyncTask extends AsyncTask<Training, Void, Void> {
-        private TrainingDao mAsyncTaskDao;
-
-        updateAsyncTask(TrainingDao dao) { mAsyncTaskDao = dao;}
-
-        @Override
-        protected Void doInBackground(final Training... params){
-            mAsyncTaskDao.update(params[0]);
-            return null;
-        }
-    }
+    public void delete (Training training) { mTrainingDao.delete(training);}
 }

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "589745968529",
+    "firebase_url": "https://sportapp-2f282.firebaseio.com",
+    "project_id": "sportapp-2f282",
+    "storage_bucket": "sportapp-2f282.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:589745968529:android:050097a0d7d8c82d3cf630",
+        "android_client_info": {
+          "package_name": "com.bitocta.sportapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "589745968529-iv14tiqguib3i1aoqs4rdki57q1pgoq1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bitocta.sportapp",
+            "certificate_hash": "126fd537b6040991e1bf88f4a9fd5c7789c99901"
+          }
+        },
+        {
+          "client_id": "589745968529-tlmsfvlm2v7h0lh7skg4fp45r924ohae.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBY1jG4pfTyewHRkbF6uuDQE19rNNC8WvA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "589745968529-tlmsfvlm2v7h0lh7skg4fp45r924ohae.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
