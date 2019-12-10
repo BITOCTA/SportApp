@@ -34,9 +34,25 @@ public class TrainingViewModel extends AndroidViewModel {
         mAllTrainings = mRepository.getAllTrainings();
     }
 
-    public LiveData<List<Training>> getAllProducts() { return mAllTrainings; }
+    public LiveData<List<Training>> getAllTrainings() { return mAllTrainings; }
 
-    public void delete(Training training) { mRepository.delete(training);}
+    public void delete(Training training) { Completable.fromAction(() -> mRepository.delete(training)).observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io()).subscribe(new CompletableObserver() {
+
+                @Override
+                public void onSubscribe(Disposable d) {
+                }
+
+                @Override
+                public void onComplete() {
+                    Log.d(TAG, "TRAINING delete Successful");
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    Log.d(TAG, "TRAINING delete Error: " + e.getMessage());
+                }
+            }); }
 
     public void insert(Training training) {   Completable.fromAction(() -> mRepository.insert(training)).observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io()).subscribe(new CompletableObserver() {

@@ -34,6 +34,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.io.ByteArrayOutputStream;
@@ -65,8 +66,9 @@ public class StartFragment extends Fragment implements DatePickerDialog.OnDateSe
 
     String image_path;
 
-    public static UserViewModel userViewModel;
-    private static TrainingViewModel trainingViewModel;
+
+    private DatabaseReference firebaseDB;
+    private DatabaseReference userRef;
 
 
     public StartFragment() {
@@ -83,6 +85,11 @@ public class StartFragment extends Fragment implements DatePickerDialog.OnDateSe
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Log.d("TEST","start");
+
+        firebaseDB = FirebaseDatabase.getInstance().getReference();
+        userRef = firebaseDB.child("user");
+
         editDateOfBirth.setOnClickListener(mView -> {
 
             Calendar now = Calendar.getInstance();
@@ -98,35 +105,19 @@ public class StartFragment extends Fragment implements DatePickerDialog.OnDateSe
             dpd.show(getFragmentManager(), "Datepickerdialog");
         });
 
-        userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
-
-        userViewModel.getAllUsers().observe(this, new Observer<List<User>>() {
-            @Override
-            public void onChanged(@Nullable List<User> user){
 
 
-            }
-        });
+        doneButton.setOnClickListener(view1 -> {
 
+            String name = editName.getText().toString();
+            double weight = Double.valueOf(editWeight.getText().toString());
+            double height = Double.valueOf(editHeight.getText().toString());
 
+            userRef.setValue(new User(name,weight,height,new Date(),image_path));
 
+            Intent i = new Intent(getContext(),MainActivity.class);
+            startActivity(i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY));
 
-        doneButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                String name = editName.getText().toString();
-                String sex = editSex.getText().toString();
-                double weight = Double.valueOf(editWeight.getText().toString());
-                double height = Double.valueOf(editHeight.getText().toString());
-
-                userViewModel.insert(new User(name,sex,weight,height,new Date(),image_path));
-
-                //Intent i = new Intent(getContext(),MainActivity.class);
-                //startActivity(i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY));
-
-            }
         });
 
         String[] permissions = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -149,7 +140,7 @@ public class StartFragment extends Fragment implements DatePickerDialog.OnDateSe
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_start, container, false);
         editName = view.findViewById(R.id.edit_user_name);
-        editSex = view.findViewById(R.id.edit_user_sex);
+
         editHeight = view.findViewById(R.id.edit_user_height);
         editWeight = view.findViewById(R.id.edit_user_weight);
         editDateOfBirth = view.findViewById(R.id.edit_user_date_of_birth);

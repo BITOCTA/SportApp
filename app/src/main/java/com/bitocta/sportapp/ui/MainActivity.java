@@ -1,6 +1,7 @@
 package com.bitocta.sportapp.ui;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,29 +14,48 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.amitshekhar.DebugDB;
+import com.bitocta.sportapp.Firebase;
 import com.bitocta.sportapp.R;
+import com.bitocta.sportapp.db.FirebaseDB;
 import com.bitocta.sportapp.db.entity.User;
 import com.bitocta.sportapp.viewmodel.UserViewModel;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
     private DrawerLayout mDrawerLayout;
-    private NavigationView navigationView;
-    private Toolbar toolbar;
-
+    public static NavigationView navigationView;
+    public static Toolbar toolbar;
     static User mUser;
+
+    private DatabaseReference firebaseDB;
+    private DatabaseReference userRef;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Log.d("TEST", "main");
+
         setContentView(R.layout.activity_main);
+
+        firebaseDB = FirebaseDB.getDatabase().getReference();
+        userRef = firebaseDB.child("user");
+
+
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigation);
@@ -54,35 +74,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ImageView image = headerView.findViewById(R.id.nav_user_image);
 
 
-        UserViewModel userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
 
-        userViewModel.getAllUsers().observe(this, users -> {
+        firebaseDB.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (!dataSnapshot.hasChild("user")) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, StartFragment.getInstance()).commit();
 
-            if (users.size() != 0) {
-                User user = users.get(0);
-                name.setText(user.getName());
-                if (user.getImage_path() != null) {
-                    Glide.with(this).load(user.getImage_path()).apply(RequestOptions.circleCropTransform()).into(image);
                 } else {
-                    Glide.with(this).load(getDrawable(R.drawable.unknown512)).apply(RequestOptions.circleCropTransform()).into(image);
+                    userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            User user = dataSnapshot.getValue(User.class);
+                            name.setText(user.getName());
+                            Glide.with(getApplicationContext()).load(getDrawable(R.drawable.unknown512)).apply(RequestOptions.circleCropTransform()).into(image);
+                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, ProgressFragment.getInstance()).commitAllowingStateLoss();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
                 }
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, ProgressFragment.getInstance()).commit();
-            } else {
-                if (savedInstanceState == null) {
-
-
-                }
-
             }
 
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
         });
-
-
-    }
-
-    public static void setUser(User user) {
-        mUser = user;
-
     }
 
 
@@ -102,4 +124,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }

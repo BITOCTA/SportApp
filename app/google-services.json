@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "589745968529-l5gfru8foltcj79ttc0kgcr2h0ugbkgj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bitocta.sportapp",
+            "certificate_hash": "be554a3e8b8e86b8906f9d459e52f01eff7d4fa7"
+          }
+        },
+        {
           "client_id": "589745968529-iv14tiqguib3i1aoqs4rdki57q1pgoq1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

@@ -1,0 +1,16 @@
+{
+  "trainings": [
+    {
+      "name": "Get ready for summer",
+      "description": "This training will help you build your body for the hot summer. Exercise everyday to achieve good results.",
+      "image_path": "/storage/emulated/0/Download/pic5.jpg",
+      "exercises": [
+        {
+          "ename": "push_ups_easy"
+
+        },
+
+      ]
+    }
+  ]
+}

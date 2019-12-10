@@ -19,6 +19,19 @@ public class Converter {
 
 
     @TypeConverter
+    public static ArrayList<Exercise.ExerciseMuscles> fromStringExerciseMuscles(String value) {
+        Type listType = new TypeToken<ArrayList<Exercise.ExerciseMuscles>>() {}.getType();
+        return new Gson().fromJson(value, listType);
+    }
+
+    @TypeConverter
+    public static String fromArrayListExerciseMuscles(ArrayList<Exercise.ExerciseMuscles> list) {
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+        return json;
+    }
+
+    @TypeConverter
     public static ArrayList<Training> fromStringTrainings(String value) {
         Type listType = new TypeToken<ArrayList<Training>>() {}.getType();
         return new Gson().fromJson(value, listType);
@@ -37,12 +50,28 @@ public class Converter {
         return new Gson().fromJson(value, listType);
     }
 
+
     @TypeConverter
     public static String fromArrayListPlans(ArrayList<Plan> list) {
+        Gson gson = new Gson();
+
+        String json = gson.toJson(list);
+        return json;
+    }
+
+    @TypeConverter
+    public static ArrayList<ArrayList<Plan>> fromStringSets(String value) {
+        Type listType = new TypeToken<ArrayList<ArrayList<Plan>>>() {}.getType();
+        return new Gson().fromJson(value, listType);
+    }
+
+    @TypeConverter
+    public static String fromArrayListSets(ArrayList<ArrayList<Plan>> list) {
         Gson gson = new Gson();
         String json = gson.toJson(list);
         return json;
     }
+
 
     @TypeConverter
     public static ArrayList<Date> fromStringDates(String value) {

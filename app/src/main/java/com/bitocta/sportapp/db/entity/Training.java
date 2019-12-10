@@ -28,19 +28,20 @@ public class Training {
     @ColumnInfo(name = "image")
     String image_path;
 
-    @ColumnInfo(name = "dates")
-    ArrayList<Date> dates;
+    @ColumnInfo(name = "days")
+    int days;
 
     @ColumnInfo(name = "setsOfExercises")
-   ArrayList<Plan> setsOfExercises;
+    ArrayList<ArrayList<Plan>> setsOfExercises;
 
-    public Training(String name, String description, String image_path, ArrayList<Date> dates, ArrayList<Plan> setsOfExercises) {
+    public Training(String name, String description, String image_path, ArrayList<ArrayList<Plan>> setsOfExercises) {
         this.name = name;
         this.description = description;
-        this.dates = dates;
         this.setsOfExercises = setsOfExercises;
         this.image_path = image_path;
+        days=setsOfExercises.size();
     }
 
-
+    public Training() {
+    }
 }

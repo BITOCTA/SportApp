@@ -1,5 +1,6 @@
 package com.bitocta.sportapp.ui;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,6 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bitocta.sportapp.R;
-import com.bitocta.sportapp.db.entity.Plan;
 import com.bitocta.sportapp.db.entity.Training;
 import com.bumptech.glide.Glide;
 
@@ -21,9 +21,9 @@ import java.util.List;
 public class PlansListAdapter extends RecyclerView.Adapter<PlansListAdapter.ViewHolder> {
 
 
-
     private View.OnClickListener mOnItemClickListener;
     private ArrayList<Training> trainings = new ArrayList<>();
+
 
 
     @NonNull
@@ -37,6 +37,8 @@ public class PlansListAdapter extends RecyclerView.Adapter<PlansListAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
+
+
         Training training = trainings.get(position);
 
         TextView title = holder.planTitle;
@@ -47,6 +49,11 @@ public class PlansListAdapter extends RecyclerView.Adapter<PlansListAdapter.View
 
 
     }
+
+    public void setOnItemClickListener(View.OnClickListener mOnItemClickListener) {
+        this.mOnItemClickListener = mOnItemClickListener;
+    }
+
 
     public void updateTrainingListItems(List<Training> trainings) {
         final PlanDiffCallback diffCallback = new PlanDiffCallback(this.trainings, trainings);
@@ -71,7 +78,6 @@ public class PlansListAdapter extends RecyclerView.Adapter<PlansListAdapter.View
 
             planTitle = itemView.findViewById(R.id.planTitle);
             planImage = itemView.findViewById(R.id.planImage);
-
             itemView.setTag(this);
             itemView.setOnClickListener(mOnItemClickListener);
 

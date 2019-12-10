@@ -22,8 +22,6 @@ public class User {
     @ColumnInfo(name = "username")
     String name;
 
-    @ColumnInfo(name = "sex")
-    String sex;
 
     @ColumnInfo(name = "weight")
     double weight;
@@ -40,6 +38,9 @@ public class User {
     @Embedded
     Training activeTraining;
 
+    @ColumnInfo(name="day")
+    int day;
+
     @ColumnInfo(name = "plans")
     ArrayList<Training> plans;
 
@@ -47,13 +48,24 @@ public class User {
     ArrayList<Pair<Training,Date>> history;
 
 
-    public User(String name, String sex, double weight, double height, Date dateOfBirth, String image_path) {
+    public User() {
+    }
+
+    public User(String name, double weight, double height, Date dateOfBirth, String image_path) {
         this.name = name;
-        this.sex = sex;
         this.weight = weight;
         this.height = height;
         this.dateOfBirth = dateOfBirth;
         this.image_path = image_path;
+        this.activeTraining=null;
     }
 
+    public void setActiveTraining(Training activeTraining) {
+        this.activeTraining = activeTraining;
+        setDay(0);
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
 }

@@ -4,13 +4,19 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import lombok.Data;
+
 @Entity
+@Data
 public class Exercise {
 
     @PrimaryKey(autoGenerate = true)
     public int eid;
 
-    @ColumnInfo(name = "name")
+    @ColumnInfo(name = "exercise_name")
     String name;
 
     @ColumnInfo(name = "imagePath")
@@ -23,12 +29,12 @@ public class Exercise {
     ExerciseLevel level;
 
     @ColumnInfo(name = "muscles")
-    ExerciseMuscles muscles;
+    ArrayList<ExerciseMuscles> muscles;
 
     @ColumnInfo(name = "equipment")
     ExerciseEquipment equipment;
 
-    public Exercise(String name, String imagePath, ExerciseType type, ExerciseLevel level, ExerciseMuscles muscles, ExerciseEquipment equipment) {
+    public Exercise(String name, String imagePath, ExerciseType type, ExerciseLevel level, ArrayList<ExerciseMuscles> muscles, ExerciseEquipment equipment) {
         this.name = name;
         this.imagePath = imagePath;
         this.type = type;
@@ -37,52 +43,7 @@ public class Exercise {
         this.equipment = equipment;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
-
-    public ExerciseType getType() {
-        return type;
-    }
-
-    public void setType(ExerciseType type) {
-        this.type = type;
-    }
-
-    public ExerciseLevel getLevel() {
-        return level;
-    }
-
-    public void setLevel(ExerciseLevel level) {
-        this.level = level;
-    }
-
-    public ExerciseMuscles getMuscles() {
-        return muscles;
-    }
-
-    public void setMuscles(ExerciseMuscles muscles) {
-        this.muscles = muscles;
-    }
-
-    public ExerciseEquipment getEquipment() {
-        return equipment;
-    }
-
-    public void setEquipment(ExerciseEquipment equipment) {
-        this.equipment = equipment;
+    public Exercise() {
     }
 
     public enum ExerciseLevel {
@@ -108,7 +69,8 @@ public class Exercise {
         GLUTES,
         BICEPS,
         ADDUCTORS,
-        ABDUCTORS
+        ABDUCTORS,
+        LEGS
     }
 
     public enum ExerciseType{
@@ -134,4 +96,6 @@ public class Exercise {
         NONE,
         OTHER
     }
+
+
 }
