@@ -46,7 +46,10 @@ public class PlansFragment extends Fragment {
     private DatabaseReference trainingsRef;
     private DatabaseReference plansRef;
 
+    List<Training> trainings;
+
     public static final String POSITION_TAG = "position";
+    public static final String PLAN_NAME_TAG = "plan_name";
 
     private View.OnClickListener onItemClickListener = view -> {
 
@@ -56,11 +59,12 @@ public class PlansFragment extends Fragment {
         Bundle bundle = new Bundle();
 
         bundle.putInt(POSITION_TAG, position);
+        bundle.putString(PLAN_NAME_TAG, trainings.get(position).getName());
 
         Fragment fragment = SpecificPlanFragment.getInstance();
         fragment.setArguments(bundle);
 
-        getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).commit();
+        getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack("plans").commit();
 
     };
 
@@ -96,17 +100,16 @@ public class PlansFragment extends Fragment {
             plansRef.child(plan.getPid()+"").setValue(plan);
         }
         for(Training training : getTrainings()){
-            trainingsRef.child(training.getTid()+"").setValue(training);
+            trainingsRef.child(training.getName()).setValue(training);
         }
 
         trainingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.hasChildren()){
-                    List<Training> trainings = new ArrayList<>();
+                    trainings = new ArrayList<>();
                     for(int i=0; i<dataSnapshot.getChildrenCount(); i++){
                         trainings.add(dataSnapshot.getChildren().iterator().next().getValue(Training.class));
-
                     }
                     plansListAdapter.updateTrainingListItems(trainings);
                 }
@@ -150,13 +153,13 @@ public class PlansFragment extends Fragment {
         squatsMuscles.add(Exercise.ExerciseMuscles.LEGS);
         ArrayList<Exercise.ExerciseMuscles> runningMuscles = new ArrayList<>();
         runningMuscles.add(Exercise.ExerciseMuscles.LEGS);
-        plans.add(new Plan("push-ups_easy",new Exercise("Push-ups","https://images.unsplash.com/photo-1509010060764-b503676a3048?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjF9", Exercise.ExerciseType.STRENGTH, Exercise.ExerciseLevel.BEGINNER,pushUpsMuscles, Exercise.ExerciseEquipment.BODY_ONLY),3,10,0,30));
-        plans.add(new Plan("squats_easy",new Exercise("Squats","https://images.unsplash.com/flagged/photo-1566064336477-864e4f308992?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjF9", Exercise.ExerciseType.STRENGTH, Exercise.ExerciseLevel.BEGINNER,squatsMuscles, Exercise.ExerciseEquipment.BODY_ONLY),3,10,0,30));
-        plans.add(new Plan("running_easy", new Exercise("Running","https://images.unsplash.com/photo-1566351557863-467d204a9f8a?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjF9", Exercise.ExerciseType.CARDIO, Exercise.ExerciseLevel.BEGINNER,runningMuscles, Exercise.ExerciseEquipment.BODY_ONLY),1,0,10,60));
-        plans.add(new Plan("pull-ups_easy", new Exercise("Pull-ups", "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjF9", Exercise.ExerciseType.STRENGTH, Exercise.ExerciseLevel.BEGINNER,pushUpsMuscles, Exercise.ExerciseEquipment.BODY_ONLY),2,5,0,30));
-        plans.add(new Plan("reverse-curl-easy",new Exercise("Reverse Curl","https://images.unsplash.com/photo-1563053764-149651f44800?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjF9", Exercise.ExerciseType.WEIGHTLIFTING, Exercise.ExerciseLevel.BEGINNER,pushUpsMuscles, Exercise.ExerciseEquipment.DUMBBELL),3,10,0,30 ));
-        plans.add(new Plan("dips-easy",new Exercise("Dips","https://images.unsplash.com/photo-1526407297627-d845b359a55b?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjF9", Exercise.ExerciseType.STRENGTH, Exercise.ExerciseLevel.BEGINNER,pushUpsMuscles, Exercise.ExerciseEquipment.MACHINE),3,5,0,30 ));
-        plans.add(new Plan("barbell-curl-easy",new Exercise("Barbell Curl","https://images.unsplash.com/photo-1526405294019-7f3f7c8c7867?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjF9", Exercise.ExerciseType.WEIGHTLIFTING, Exercise.ExerciseLevel.BEGINNER,pushUpsMuscles, Exercise.ExerciseEquipment.BARBELL),3,5,0,30));
+        plans.add(new Plan("push-ups_easy",new Exercise("Push-ups","https://images.unsplash.com/photo-1509010060764-b503676a3048?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjF9", Exercise.ExerciseType.STRENGTH, Exercise.ExerciseLevel.BEGINNER,pushUpsMuscles, Exercise.ExerciseEquipment.BODY_ONLY,"Simple push-ups"),3,10,0,30));
+        plans.add(new Plan("squats_easy",new Exercise("Squats","https://images.unsplash.com/flagged/photo-1566064336477-864e4f308992?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjF9", Exercise.ExerciseType.STRENGTH, Exercise.ExerciseLevel.BEGINNER,squatsMuscles, Exercise.ExerciseEquipment.BODY_ONLY,"Simple squats"),3,10,0,30));
+        plans.add(new Plan("running_easy", new Exercise("Running","https://images.unsplash.com/photo-1566351557863-467d204a9f8a?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjF9", Exercise.ExerciseType.CARDIO, Exercise.ExerciseLevel.BEGINNER,runningMuscles, Exercise.ExerciseEquipment.BODY_ONLY,"Simple running"),1,0,10,60));
+        plans.add(new Plan("pull-ups_easy", new Exercise("Pull-ups", "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjF9", Exercise.ExerciseType.STRENGTH, Exercise.ExerciseLevel.BEGINNER,pushUpsMuscles, Exercise.ExerciseEquipment.BODY_ONLY,"Simple pull-ups"),2,5,0,30));
+        plans.add(new Plan("reverse-curl-easy",new Exercise("Reverse Curl","https://images.unsplash.com/photo-1563053764-149651f44800?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjF9", Exercise.ExerciseType.WEIGHTLIFTING, Exercise.ExerciseLevel.BEGINNER,pushUpsMuscles, Exercise.ExerciseEquipment.DUMBBELL,"Simple reverse curl"),3,10,0,30 ));
+        plans.add(new Plan("dips-easy",new Exercise("Dips","https://images.unsplash.com/photo-1526407297627-d845b359a55b?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjF9", Exercise.ExerciseType.STRENGTH, Exercise.ExerciseLevel.BEGINNER,pushUpsMuscles, Exercise.ExerciseEquipment.MACHINE,"Simple dips"),3,5,0,30 ));
+        plans.add(new Plan("barbell-curl-easy",new Exercise("Barbell Curl","https://images.unsplash.com/photo-1526405294019-7f3f7c8c7867?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjF9", Exercise.ExerciseType.WEIGHTLIFTING, Exercise.ExerciseLevel.BEGINNER,pushUpsMuscles, Exercise.ExerciseEquipment.BARBELL,"Simple barbell curl"),3,5,0,30));
         return plans;
     }
     static  ArrayList<Training> getTrainings(){
@@ -178,9 +181,10 @@ public class PlansFragment extends Fragment {
             }
             setsOfExercise.add(day);
         }
-        trainings.add(new Training("Find your balance","In the command style of coaching, the coach makes all the decisions. The role of the athlete is to respond to the coach’s commands. The assumption underlying this approach is that because the coach has knowledge and experience, it is his or her role to tell the athlete what to do. The athlete’s role is to listen, to absorb, and to comply.",downloadFolder+"/pic6.jpg",setsOfExercise));
-
+        trainings.add(new Training("Find your balance","In the command style of coaching, the coach makes all the decisions. The role of the athlete is to respond to the coach’s commands. The assumption underlying this approach is that because the coach has knowledge and experience, it is his or her role to tell the athlete what to do. The athlete’s role is to listen, to absorb, and to comply.",downloadFolder+"/pic6.jpg","Beginner",3,setsOfExercise));
         return trainings;
     }
+
+
 
 }

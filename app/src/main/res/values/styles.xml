@@ -8,4 +8,16 @@
         <item name="colorAccent">@color/colorPrimaryLight</item>
     </style>
 
+    <style name="ButtonStylePrimary" parent="android:style/Widget.Button">
+        <item name="android:background">@drawable/btn_rounded_primary</item>
+    </style>
+
+    <style name="ButtonStyleRed" parent="android:style/Widget.Button">
+        <item name="android:background">@drawable/btn_rounded_red</item>
+    </style>
+
+    <style name="ButtonStyleGreen" parent="android:style/Widget.Button">
+        <item name="android:background">@drawable/btn_rounded_green</item>
+    </style>
+
 </resources>

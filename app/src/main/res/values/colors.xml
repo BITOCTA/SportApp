@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#5f55ad</color>
-    <color name="colorPrimaryDark">#5f55ea</color>
-    <color name="colorPrimaryLight">#9082df</color>
-    <color name="colorAccent">#3C749C</color>
+    <color name="colorPrimary">#9082df</color>
+    <color name="colorPrimaryDark">#5f55ad</color>
+    <color name="colorPrimaryLight">#c3b2ff</color>
+    <color name="colorAccent">#CDE8D7</color>
+
+    <color name="colorRed">#D04F37</color>
+    <color name="colorGreen">#5AB8BB</color>
 
     <color name="titleColor">#de000000</color>
     <color name="sixty_perc_black">#66000000</color>
+    <color name="eighty_perc_black">#cc000000</color>
 </resources>

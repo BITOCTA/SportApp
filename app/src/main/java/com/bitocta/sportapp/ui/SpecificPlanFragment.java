@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -30,10 +31,15 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
+import static com.bitocta.sportapp.ui.MainActivity.toolbar;
+
 public class SpecificPlanFragment extends Fragment {
     private TextView description;
+    private TextView additionalInfo;
+    private TextView name;
     private ImageView image;
     int position;
+    String trainingName;
     private TrainingViewModel trainingViewModel;
 
     private ExtendedFloatingActionButton startPlan;
@@ -51,6 +57,8 @@ public class SpecificPlanFragment extends Fragment {
         return fragment;
     }
 
+
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -58,11 +66,14 @@ public class SpecificPlanFragment extends Fragment {
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             position = bundle.getInt(PlansFragment.POSITION_TAG, 0);
+            trainingName = bundle.getString(PlansFragment.PLAN_NAME_TAG,"");
         }
 
         firebaseDB = FirebaseDatabase.getInstance().getReference();
         userRef = firebaseDB.child("user");
-        trainingsRef = firebaseDB.child("trainings").child("0");
+        trainingsRef = firebaseDB.child("trainings").child(trainingName);
+
+        toolbar.setTitle(getString(R.string.plan_overview));
 
 
 
@@ -89,7 +100,9 @@ public class SpecificPlanFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 training = dataSnapshot.getValue(Training.class);
+                name.setText(training.getName());
                 description.setText(training.getDescription());
+                additionalInfo.setText(training.getDays() + " days | "+ training.getLevel()+" | "+training.getDaysAWeek()+" days a week");
                 Glide.with(getContext()).load(training.getImage_path()).centerCrop().into(image);
             }
 
@@ -121,6 +134,8 @@ public class SpecificPlanFragment extends Fragment {
         description = view.findViewById(R.id.plan_description);
         image = view.findViewById(R.id.plan_image);
         startPlan = view.findViewById(R.id.fab_start_plan);
+        name=  view.findViewById(R.id.plan_name);
+        additionalInfo = view.findViewById(R.id.plan_info);
         return view;
     }
 }

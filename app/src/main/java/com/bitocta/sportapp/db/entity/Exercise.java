@@ -34,13 +34,17 @@ public class Exercise {
     @ColumnInfo(name = "equipment")
     ExerciseEquipment equipment;
 
-    public Exercise(String name, String imagePath, ExerciseType type, ExerciseLevel level, ArrayList<ExerciseMuscles> muscles, ExerciseEquipment equipment) {
+    @ColumnInfo(name = "description")
+    String description;
+
+    public Exercise(String name, String imagePath, ExerciseType type, ExerciseLevel level, ArrayList<ExerciseMuscles> muscles, ExerciseEquipment equipment,String description) {
         this.name = name;
         this.imagePath = imagePath;
         this.type = type;
         this.level = level;
         this.muscles = muscles;
         this.equipment = equipment;
+        this.description = description;
     }
 
     public Exercise() {

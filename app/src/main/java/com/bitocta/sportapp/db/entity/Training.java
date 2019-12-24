@@ -31,14 +31,20 @@ public class Training {
     @ColumnInfo(name = "days")
     int days;
 
+    String level;
+
+    int daysAWeek;
+
     @ColumnInfo(name = "setsOfExercises")
     ArrayList<ArrayList<Plan>> setsOfExercises;
 
-    public Training(String name, String description, String image_path, ArrayList<ArrayList<Plan>> setsOfExercises) {
+    public Training(String name, String description, String image_path, String level, int daysAWeek, ArrayList<ArrayList<Plan>> setsOfExercises) {
         this.name = name;
         this.description = description;
         this.setsOfExercises = setsOfExercises;
         this.image_path = image_path;
+        this.level = level;
+        this.daysAWeek=daysAWeek;
         days=setsOfExercises.size();
     }
 

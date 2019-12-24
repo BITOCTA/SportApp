@@ -132,6 +132,8 @@ public class ProgressFragment extends Fragment {
                                 Fragment fragment = SpecificDayFragment.getInstance();
                                 fragment.setArguments(bundle);
 
+
+
                                 getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack(null).commit();
 
                                 /*RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) v.getTag();

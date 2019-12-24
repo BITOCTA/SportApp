@@ -1,5 +1,6 @@
 package com.bitocta.sportapp.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bitocta.sportapp.R;
 import com.bitocta.sportapp.db.entity.User;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,6 +33,7 @@ public class SpecificDayFragment extends Fragment {
     private DatabaseReference userRef;
 
     private User user;
+    private ExtendedFloatingActionButton fab;
 
 
 
@@ -47,6 +50,8 @@ public class SpecificDayFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
+
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             position = bundle.getInt(ProgressFragment.POSITION_TAG, 0);
@@ -54,9 +59,7 @@ public class SpecificDayFragment extends Fragment {
         firebaseDB = FirebaseDatabase.getInstance().getReference();
         userRef = firebaseDB.child("user");
 
-
-
-
+        MainActivity.toolbar.setTitle(getContext().getString(R.string.day)+" "+(position+1));
 
 
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -87,6 +90,17 @@ public class SpecificDayFragment extends Fragment {
             }
         });
 
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(),ExerciseTimerActivity.class);
+                Bundle mBundle = new Bundle();
+                mBundle.putInt(ProgressFragment.POSITION_TAG, position);
+                intent.putExtras(mBundle);
+                startActivity(intent);
+            }
+        });
+
 
 
 
@@ -99,6 +113,7 @@ public class SpecificDayFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_specific_day, container, false);
 
         recyclerView = view.findViewById(R.id.recycler_view_exercises);
+        fab = view.findViewById(R.id.fab_start_day);
 
         return view;
     }

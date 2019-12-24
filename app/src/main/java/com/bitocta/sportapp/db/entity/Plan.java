@@ -34,6 +34,8 @@ public class Plan {
     @ColumnInfo(name = "secondsOfRest")
     int secondsOfRest;
 
+
+
     public Plan(String name, Exercise exercise, int sets, int reps, int minutes, int secondsOfRest) {
         this.name = name;
         this.exercise = exercise;

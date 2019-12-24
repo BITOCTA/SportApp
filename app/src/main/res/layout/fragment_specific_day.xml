@@ -1,12 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_exercises"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-</LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fab_start_day"
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center|bottom"
+        android:layout_height="wrap_content"
+        android:text="@string/start_day"
+        android:textAlignment="center"
+        android:theme="@style/AppTheme"
+        android:backgroundTint="@color/colorPrimaryLight"
+
+        />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

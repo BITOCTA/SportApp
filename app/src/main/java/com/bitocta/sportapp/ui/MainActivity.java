@@ -55,8 +55,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         firebaseDB = FirebaseDB.getDatabase().getReference();
         userRef = firebaseDB.child("user");
 
-
-
         mDrawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigation);
         toolbar = findViewById(R.id.toolbar);
@@ -65,13 +63,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.addDrawerListener(toggle);
+
         toggle.syncState();
 
         View headerView = navigationView.getHeaderView(0);
 
-
         TextView name = headerView.findViewById(R.id.nav_user_name);
+        TextView currentProgram  =headerView.findViewById(R.id.nav_current_program);
         ImageView image = headerView.findViewById(R.id.nav_user_image);
+
+
 
 
 
@@ -88,6 +89,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             User user = dataSnapshot.getValue(User.class);
                             name.setText(user.getName());
                             Glide.with(getApplicationContext()).load(getDrawable(R.drawable.unknown512)).apply(RequestOptions.circleCropTransform()).into(image);
+                            if(user.getActiveTraining()!=null){
+                                currentProgram.setText(currentProgram.getText()+" "+ user.getActiveTraining().getName());
+                            }
                             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, ProgressFragment.getInstance()).commitAllowingStateLoss();
                         }
 
@@ -124,5 +128,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 
 }
