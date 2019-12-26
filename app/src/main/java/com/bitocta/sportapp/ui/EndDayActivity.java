@@ -26,6 +26,7 @@ public class EndDayActivity extends AppCompatActivity {
     private Button goBackButton;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +43,7 @@ public class EndDayActivity extends AppCompatActivity {
         day = getIntent().getExtras().getInt(ProgressFragment.POSITION_TAG);
 
         bottom_apr = AnimationUtils.loadAnimation(this, R.anim.appear_from_bottom);
-        simple_alpha = AnimationUtils.loadAnimation(this, R.anim.simple_alpha);
+        simple_alpha = AnimationUtils.loadAnimation(this, R.anim.simple_alpha_app);
 
         congratulationsText.startAnimation(simple_alpha);
         youMadeItText.startAnimation(simple_alpha);

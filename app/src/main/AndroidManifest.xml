@@ -15,23 +15,36 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.EndDayActivity"
+        <activity android:name=".ui.WelcomeActivity"
+            android:noHistory="true"
+            android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:noHistory="true"></activity>
-        <activity android:name=".ui.ExerciseTimerActivity"
-            android:screenOrientation="portrait"
-            android:noHistory="true"/>
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ui.EndDayActivity"
+            android:noHistory="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.ExerciseTimerActivity"
+            android:noHistory="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.MainActivity"
             android:label="@string/app_name"
             android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
+
+
+
         </activity>
     </application>
 

@@ -19,6 +19,8 @@ public class User {
     @PrimaryKey(autoGenerate = true)
     public int uid;
 
+    String email;
+
     @ColumnInfo(name = "username")
     String name;
 
@@ -49,6 +51,10 @@ public class User {
 
 
     public User() {
+    }
+
+    public User(String email) {
+        this.email = email;
     }
 
     public User(String name, double weight, double height, Date dateOfBirth, String image_path) {

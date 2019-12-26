@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DatabaseReference firebaseDB;
     private DatabaseReference userRef;
 
+    private View.OnClickListener profileClick;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         setContentView(R.layout.activity_main);
 
-        firebaseDB = FirebaseDB.getDatabase().getReference();
+        firebaseDB = FirebaseDatabase.getInstance().getReference();
         userRef = firebaseDB.child("user");
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
@@ -69,8 +71,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         View headerView = navigationView.getHeaderView(0);
 
         TextView name = headerView.findViewById(R.id.nav_user_name);
-        TextView currentProgram  =headerView.findViewById(R.id.nav_current_program);
+        TextView currentProgram  = headerView.findViewById(R.id.nav_current_program);
         ImageView image = headerView.findViewById(R.id.nav_user_image);
+
+        profileClick = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, ProfileFragment.getInstance()).commit();
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+            }
+        };
+
+        image.setOnClickListener(profileClick);
+        name.setOnClickListener(profileClick);
 
 
 
