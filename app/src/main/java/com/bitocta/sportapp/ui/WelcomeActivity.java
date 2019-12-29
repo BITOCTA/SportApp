@@ -58,6 +58,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private DatabaseReference firebaseDB;
+    private DatabaseReference usersRef;
 
 
     @Override
@@ -67,140 +68,144 @@ public class WelcomeActivity extends AppCompatActivity {
 
 
         mAuth = FirebaseAuth.getInstance();
-
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-
-        firebaseDB = FirebaseDB.getDatabase().getReference();
-
-
-        startButton = findViewById(R.id.start_button);
-        logo = findViewById(R.id.app_logo_img);
-        outlinedLogo = findViewById(R.id.logo_outlined);
-        name = findViewById(R.id.app_name);
-        startText = findViewById(R.id.start_text);
-        description = findViewById(R.id.app_descr);
-        emailInput = findViewById(R.id.input_email);
-        passwordInput = findViewById(R.id.input_pass);
-        emailEdit = findViewById(R.id.edit_email);
-        passwordEdit = findViewById(R.id.edit_pass);
-        loginButton = findViewById(R.id.login_button);
-        loginText = findViewById(R.id.login_text);
-        divider = findViewById(R.id.login_divider);
-        dontHaveAnAccountText = findViewById(R.id.dont_have_account_text);
-        signUpText = findViewById(R.id.sign_up_text);
+        if (currentUser != null) {
+            startActivity(new Intent(this, MainActivity.class));
+        } else {
 
 
-        outlinedLogo.setVisibility(View.INVISIBLE);
-        emailInput.setVisibility(View.INVISIBLE);
-        passwordInput.setVisibility(View.INVISIBLE);
-        loginButton.setVisibility(View.INVISIBLE);
-        loginText.setVisibility(View.INVISIBLE);
-        divider.setVisibility(View.INVISIBLE);
-        dontHaveAnAccountText.setVisibility(View.INVISIBLE);
-        signUpText.setVisibility(View.INVISIBLE);
-        signUpText.setActivated(false);
-        emailInput.setActivated(false);
-        passwordInput.setActivated(false);
-        loginButton.setActivated(false);
+            firebaseDB = FirebaseDB.getDatabase().getReference();
+            usersRef = firebaseDB.child("users");
+
+            startButton = findViewById(R.id.start_button);
+            logo = findViewById(R.id.app_logo_img);
+            outlinedLogo = findViewById(R.id.logo_outlined);
+            name = findViewById(R.id.app_name);
+            startText = findViewById(R.id.start_text);
+            description = findViewById(R.id.app_descr);
+            emailInput = findViewById(R.id.input_email);
+            passwordInput = findViewById(R.id.input_pass);
+            emailEdit = findViewById(R.id.edit_email);
+            passwordEdit = findViewById(R.id.edit_pass);
+            loginButton = findViewById(R.id.login_button);
+            loginText = findViewById(R.id.login_text);
+            divider = findViewById(R.id.login_divider);
+            dontHaveAnAccountText = findViewById(R.id.dont_have_account_text);
+            signUpText = findViewById(R.id.sign_up_text);
 
 
-        Animation simple_alpha_app = AnimationUtils.loadAnimation(this, R.anim.simple_alpha_app);
-        simple_alpha_app.setDuration(300);
-        Animation simple_alpha_dis = AnimationUtils.loadAnimation(this, R.anim.simple_alpha_dis);
-        simple_alpha_dis.setDuration(300);
-        Animation translate_dis = AnimationUtils.loadAnimation(this, R.anim.translate_diss);
-        translate_dis.setDuration(300);
+            outlinedLogo.setVisibility(View.INVISIBLE);
+            emailInput.setVisibility(View.INVISIBLE);
+            passwordInput.setVisibility(View.INVISIBLE);
+            loginButton.setVisibility(View.INVISIBLE);
+            loginText.setVisibility(View.INVISIBLE);
+            divider.setVisibility(View.INVISIBLE);
+            dontHaveAnAccountText.setVisibility(View.INVISIBLE);
+            signUpText.setVisibility(View.INVISIBLE);
+            signUpText.setActivated(false);
+            emailInput.setActivated(false);
+            passwordInput.setActivated(false);
+            loginButton.setActivated(false);
 
 
-        startButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            Animation simple_alpha_app = AnimationUtils.loadAnimation(this, R.anim.simple_alpha_app);
+            simple_alpha_app.setDuration(300);
+            Animation simple_alpha_dis = AnimationUtils.loadAnimation(this, R.anim.simple_alpha_dis);
+            simple_alpha_dis.setDuration(300);
+            Animation translate_dis = AnimationUtils.loadAnimation(this, R.anim.translate_diss);
+            translate_dis.setDuration(300);
 
 
-                // slideView(logo,logo.getLayoutParams().height,300);
-
-                logo.startAnimation(translate_dis);
-                logo.setVisibility(View.INVISIBLE);
-                outlinedLogo.startAnimation(simple_alpha_app);
-                outlinedLogo.setVisibility(View.VISIBLE);
-
-                emailInput.startAnimation(simple_alpha_app);
-                emailInput.setVisibility(View.VISIBLE);
-                passwordInput.startAnimation(simple_alpha_app);
-                passwordInput.setVisibility(View.VISIBLE);
-                name.startAnimation(translate_dis);
-                name.setVisibility(View.INVISIBLE);
-                description.startAnimation(translate_dis);
-                description.setVisibility(View.INVISIBLE);
-
-                loginButton.startAnimation(simple_alpha_app);
-                loginButton.setVisibility(View.VISIBLE);
-                loginButton.setActivated(true);
-
-                loginText.startAnimation(simple_alpha_app);
-                loginText.setVisibility(View.VISIBLE);
-
-                startButton.startAnimation(translate_dis);
-                startButton.setVisibility(View.INVISIBLE);
-
-                divider.startAnimation(simple_alpha_app);
-                divider.setVisibility(View.VISIBLE);
-                dontHaveAnAccountText.startAnimation(simple_alpha_app);
-                dontHaveAnAccountText.setVisibility(View.VISIBLE);
-                signUpText.startAnimation(simple_alpha_app);
-                signUpText.setVisibility(View.VISIBLE);
-
-                startText.startAnimation(translate_dis);
-                startText.setVisibility(View.INVISIBLE);
+            startButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
 
-                signUpText.setActivated(true);
-                emailInput.setActivated(true);
-                passwordInput.setActivated(true);
-                startButton.setActivated(false);
+                    // slideView(logo,logo.getLayoutParams().height,300);
+
+                    logo.startAnimation(translate_dis);
+                    logo.setVisibility(View.INVISIBLE);
+                    outlinedLogo.startAnimation(simple_alpha_app);
+                    outlinedLogo.setVisibility(View.VISIBLE);
+
+                    emailInput.startAnimation(simple_alpha_app);
+                    emailInput.setVisibility(View.VISIBLE);
+                    passwordInput.startAnimation(simple_alpha_app);
+                    passwordInput.setVisibility(View.VISIBLE);
+                    name.startAnimation(translate_dis);
+                    name.setVisibility(View.INVISIBLE);
+                    description.startAnimation(translate_dis);
+                    description.setVisibility(View.INVISIBLE);
+
+                    loginButton.startAnimation(simple_alpha_app);
+                    loginButton.setVisibility(View.VISIBLE);
+                    loginButton.setActivated(true);
+
+                    loginText.startAnimation(simple_alpha_app);
+                    loginText.setVisibility(View.VISIBLE);
+
+                    startButton.startAnimation(translate_dis);
+                    startButton.setVisibility(View.INVISIBLE);
+
+                    divider.startAnimation(simple_alpha_app);
+                    divider.setVisibility(View.VISIBLE);
+                    dontHaveAnAccountText.startAnimation(simple_alpha_app);
+                    dontHaveAnAccountText.setVisibility(View.VISIBLE);
+                    signUpText.startAnimation(simple_alpha_app);
+                    signUpText.setVisibility(View.VISIBLE);
+
+                    startText.startAnimation(translate_dis);
+                    startText.setVisibility(View.INVISIBLE);
 
 
-            }
-        });
+                    signUpText.setActivated(true);
+                    emailInput.setActivated(true);
+                    passwordInput.setActivated(true);
+                    startButton.setActivated(false);
 
-        signUpText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                String email = emailInput.getEditText().getText().toString();
-                String password = passwordInput.getEditText().getText().toString();
+                }
+            });
 
-                if (StringUtils.isEmpty(email) || StringUtils.isEmpty(password)) {
-                    Toast.makeText(getApplicationContext(), "You should input both email and password", Toast.LENGTH_LONG).show();
-                } else {
+            signUpText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                    Log.d("TEST","email:"+email+" password:"+password);
+                    String email = emailInput.getEditText().getText().toString();
+                    String password = passwordInput.getEditText().getText().toString();
 
-                    mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(WelcomeActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
+                    if (StringUtils.isEmpty(email) || StringUtils.isEmpty(password)) {
+                        Toast.makeText(getApplicationContext(), "You should input both email and password", Toast.LENGTH_LONG).show();
+                    } else {
 
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            Toast.makeText(getApplicationContext(), "Registered successfully. Check your e-mail for verification", Toast.LENGTH_LONG).show();
+                        Log.d("TEST", "email:" + email + " password:" + password);
+
+                        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(WelcomeActivity.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                usersRef.child(mAuth.getCurrentUser().getUid()).setValue(new User(mAuth.getCurrentUser().getEmail()));
+                                                Toast.makeText(getApplicationContext(), "Registered successfully. Check your e-mail for verification", Toast.LENGTH_LONG).show();
+                                            }
+
                                         }
-
-                                    }
-                                });
+                                    });
 
 
-                            } else {
+                                } else {
 
-                                Toast.makeText(getApplicationContext(), "Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Authentication failed.",
+                                            Toast.LENGTH_SHORT).show();
+                                }
                             }
-                        }
-                    });
+                        });
                     /*
                     firebaseDB.child("users").child(email.replace(".", "")).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -227,40 +232,41 @@ public class WelcomeActivity extends AppCompatActivity {
                         }
                     });*/
 
+                    }
                 }
-            }
-        });
+            });
 
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            loginButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                String email = emailEdit.getText().toString();
-                String password = passwordEdit.getText().toString();
-                if (StringUtils.isEmpty(email) || StringUtils.isEmpty(password)) {
-                    Toast.makeText(getApplicationContext(), "You should input both email and password", Toast.LENGTH_LONG).show();
+                    String email = emailEdit.getText().toString();
+                    String password = passwordEdit.getText().toString();
+                    if (StringUtils.isEmpty(email) || StringUtils.isEmpty(password)) {
+                        Toast.makeText(getApplicationContext(), "You should input both email and password", Toast.LENGTH_LONG).show();
 
-                } else {
-                    mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(WelcomeActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                if(mAuth.getCurrentUser().isEmailVerified()) {
-                                    //mAuth.getCurrentUser().getEmail().replace(".","");
-                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    } else {
+                        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(WelcomeActivity.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    if (mAuth.getCurrentUser().isEmailVerified()) {
+                                        //mAuth.getCurrentUser().getEmail().replace(".","");
+
+                                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), "Please, verify your e-mail adress", Toast.LENGTH_LONG).show();
+                                    }
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_LONG).show();
                                 }
-                                else{
-                                    Toast.makeText(getApplicationContext(),"Please, verify your e-mail adress",Toast.LENGTH_LONG).show();
-                                }
-                            } else {
-                                Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_LONG).show();
                             }
-                        }
-                    });
+                        });
+                    }
                 }
-            }
-        });
+            });
+        }
 
 
     }

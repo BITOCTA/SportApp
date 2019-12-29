@@ -27,14 +27,19 @@ import android.widget.ImageView;
 import com.bitocta.sportapp.R;
 
 
+import com.bitocta.sportapp.UserRepo;
 import com.bitocta.sportapp.db.entity.User;
 import com.bitocta.sportapp.viewmodel.TrainingViewModel;
 import com.bitocta.sportapp.viewmodel.UserViewModel;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.io.ByteArrayOutputStream;
@@ -70,6 +75,8 @@ public class StartFragment extends Fragment implements DatePickerDialog.OnDateSe
     private DatabaseReference firebaseDB;
     private DatabaseReference userRef;
 
+    private FirebaseAuth mAuth;
+
 
     public StartFragment() {
         // Required empty public constructor
@@ -85,10 +92,10 @@ public class StartFragment extends Fragment implements DatePickerDialog.OnDateSe
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Log.d("TEST","start");
 
         firebaseDB = FirebaseDatabase.getInstance().getReference();
-        userRef = firebaseDB.child("user");
+        mAuth = FirebaseAuth.getInstance();
+        userRef = UserRepo.getUserRef();
 
         editDateOfBirth.setOnClickListener(mView -> {
 
@@ -109,14 +116,35 @@ public class StartFragment extends Fragment implements DatePickerDialog.OnDateSe
 
         doneButton.setOnClickListener(view1 -> {
 
-            String name = editName.getText().toString();
-            double weight = Double.valueOf(editWeight.getText().toString());
-            double height = Double.valueOf(editHeight.getText().toString());
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-            userRef.setValue(new User(name,weight,height,new Date(),image_path));
 
-            Intent i = new Intent(getContext(),MainActivity.class);
-            startActivity(i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY));
+                    User user = dataSnapshot.getValue(User.class);
+
+                    String name = editName.getText().toString();
+                    double weight = Double.valueOf(editWeight.getText().toString());
+                    double height = Double.valueOf(editHeight.getText().toString());
+
+                    user.setName(name);
+                    user.setWeight(weight);
+                    user.setHeight(height);
+
+                    userRef.setValue(user);
+
+                    Intent i = new Intent(getContext(),MainActivity.class);
+                    startActivity(i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY));
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+
 
         });
 

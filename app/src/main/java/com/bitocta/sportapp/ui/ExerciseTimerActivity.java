@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bitocta.sportapp.R;
+import com.bitocta.sportapp.UserRepo;
 import com.bitocta.sportapp.db.entity.Exercise;
 import com.bitocta.sportapp.db.entity.Plan;
 import com.bitocta.sportapp.db.entity.User;
@@ -74,8 +75,7 @@ public class ExerciseTimerActivity extends AppCompatActivity {
         day = getIntent().getExtras().getInt(ProgressFragment.POSITION_TAG);
 
         firebaseDB = FirebaseDatabase.getInstance().getReference();
-        userRef = firebaseDB.child("user");
-
+        userRef = UserRepo.getUserRef();
         rotateAnimation = AnimationUtils.loadAnimation(this, R.anim.rotatearrow);
 
 

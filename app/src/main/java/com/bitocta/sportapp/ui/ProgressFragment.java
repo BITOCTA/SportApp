@@ -21,11 +21,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bitocta.sportapp.R;
 
+import com.bitocta.sportapp.UserRepo;
 import com.bitocta.sportapp.db.entity.Training;
 import com.bitocta.sportapp.db.entity.User;
 import com.bitocta.sportapp.viewmodel.UserViewModel;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -54,6 +56,7 @@ public class ProgressFragment extends Fragment {
     private DatabaseReference userRef;
     Training training;
 
+    private FirebaseAuth mAuth;
 
     public static final String POSITION_TAG = "position";
 
@@ -76,9 +79,8 @@ public class ProgressFragment extends Fragment {
         context = getContext();
 
 
-
         firebaseDB = FirebaseDatabase.getInstance().getReference();
-        userRef = firebaseDB.child("user");
+        userRef = UserRepo.getUserRef();
 
 
         userRef.addValueEventListener(new ValueEventListener() {
@@ -133,24 +135,7 @@ public class ProgressFragment extends Fragment {
                                 fragment.setArguments(bundle);
 
 
-
-                                getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack(null).commit();
-
-                                /*RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) v.getTag();
-                                double newDay = Double.valueOf(viewHolder.getAdapterPosition() + 1);
-
-
-                                user.setDay((int) newDay);
-                                userRef.setValue(user);
-
-                                int progress = (int) (newDay / Double.valueOf(training.getDays()) * 100);
-                                progressBar.setProgress(progress);
-                                progressComplete.setText(progress + "% complete");
-                                daysListAdapter.updateDaysListItems(training.getSetsOfExercises(), user);
-                                daysListAdapter.notifyDataSetChanged();*/
-                                //daysList.requestLayout();
-                                //daysList.forceLayout();
-
+                                getFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).addToBackStack(null).commit();
 
 
                             }
@@ -165,8 +150,6 @@ public class ProgressFragment extends Fragment {
 
             }
         });
-
-
 
 
         progressBar.setVisibility(View.INVISIBLE);

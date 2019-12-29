@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bitocta.sportapp.R;
+import com.bitocta.sportapp.UserRepo;
 import com.bitocta.sportapp.db.entity.User;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -57,7 +58,7 @@ public class SpecificDayFragment extends Fragment {
             position = bundle.getInt(ProgressFragment.POSITION_TAG, 0);
         }
         firebaseDB = FirebaseDatabase.getInstance().getReference();
-        userRef = firebaseDB.child("user");
+        userRef = UserRepo.getUserRef();
 
         MainActivity.toolbar.setTitle(getContext().getString(R.string.day)+" "+(position+1));
 

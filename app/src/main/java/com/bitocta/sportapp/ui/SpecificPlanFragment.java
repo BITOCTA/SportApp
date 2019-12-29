@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.bitocta.sportapp.R;
+import com.bitocta.sportapp.UserRepo;
 import com.bitocta.sportapp.db.entity.Plan;
 import com.bitocta.sportapp.db.entity.Training;
 import com.bitocta.sportapp.db.entity.User;
@@ -70,7 +71,7 @@ public class SpecificPlanFragment extends Fragment {
         }
 
         firebaseDB = FirebaseDatabase.getInstance().getReference();
-        userRef = firebaseDB.child("user");
+        userRef = UserRepo.getUserRef();
         trainingsRef = firebaseDB.child("trainings").child(trainingName);
 
         toolbar.setTitle(getString(R.string.plan_overview));

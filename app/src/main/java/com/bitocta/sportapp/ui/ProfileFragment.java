@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bitocta.sportapp.R;
+import com.bitocta.sportapp.UserRepo;
 import com.bitocta.sportapp.db.entity.User;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -55,7 +56,7 @@ public class ProfileFragment extends Fragment {
         MainActivity.toolbar.setTitle(getString(R.string.profile));
 
         firebaseDB = FirebaseDatabase.getInstance().getReference();
-        userRef = firebaseDB.child("user");
+        userRef = UserRepo.getUserRef();
 
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
