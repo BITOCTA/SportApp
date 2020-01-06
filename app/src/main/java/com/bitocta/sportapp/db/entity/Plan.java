@@ -22,25 +22,16 @@ public class Plan {
     @Embedded
     Exercise exercise;
 
-    @ColumnInfo(name = "sets")
-    int sets;
-
-    @ColumnInfo(name = "reps")
-    int reps;
-
     @ColumnInfo(name = "minutes")
-    int minutes;
+    int seconds;
 
     @ColumnInfo(name = "secondsOfRest")
     int secondsOfRest;
 
-
-
-    public Plan(String name, Exercise exercise, int sets, int reps, int minutes, int secondsOfRest) {
+    public Plan(String name, Exercise exercise, int seconds, int secondsOfRest) {
         this.name = name;
         this.exercise = exercise;
-        this.sets = sets;
-        this.reps = reps;
+        this.seconds = seconds;
         this.secondsOfRest = secondsOfRest;
     }
 

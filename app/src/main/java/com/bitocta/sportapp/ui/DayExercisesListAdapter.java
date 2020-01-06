@@ -45,11 +45,10 @@ public class DayExercisesListAdapter extends RecyclerView.Adapter<DayExercisesLi
         title.setText(plan.getExercise().getName());
 
 
-        if (plan.getReps() == 0) {
-            reps.setText(plan.getMinutes() + " minutes");
-        } else {
-            reps.setText(plan.getReps() + " reps");
-        }
+
+        reps.setText(plan.getSeconds()/60 + " minutes");
+
+
 
         if (plan.getExercise().getImagePath() != null) {
             Glide.with(ProgressFragment.context).load(plan.getExercise().getImagePath()).centerCrop().into(image);

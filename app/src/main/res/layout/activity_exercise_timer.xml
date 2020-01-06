@@ -7,103 +7,54 @@
     tools:context=".ui.ExerciseTimerActivity"
 >
 
-    <Chronometer
-        android:id="@+id/chronometer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.563"
-        android:fontFamily="@font/robotomedium"
-        android:textSize="24sp"/>
-
-    <ImageView
-        android:id="@+id/arrow"
-        android:layout_width="275dp"
-        android:layout_height="275dp"
-        android:src="@drawable/arrow"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.583" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="275dp"
-        android:layout_height="275dp"
-        android:src="@drawable/timer"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.583" />
-
     <TextView
         android:id="@+id/count_down_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:fontFamily="@font/robotobold"
+        android:textColor="@color/titleColor"
+        android:textSize="42sp"
+        app:layout_constraintBottom_toTopOf="@+id/ex_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.553"
 
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ex_image"
-        android:layout_width="150dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="123dp"
-        android:layout_marginEnd="192dp"
-        android:layout_marginBottom="196dp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.231"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.615" />
+        app:layout_constraintVertical_bias="0.436" />
 
     <TextView
         android:id="@+id/ex_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/robotomedium"
+        android:textColor="#FFF"
         android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/ex_image"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textColor="@color/titleColor"/>
-
-    <TextView
-        android:id="@+id/ex_reps"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="76dp"
-        android:fontFamily="@font/robotoregular"
-        android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/ex_image"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textColor="@color/eighty_perc_black"
-        />
+        app:layout_constraintTop_toTopOf="@id/ex_image"
+        app:layout_constraintStart_toStartOf="@id/ex_image"
+        android:layout_marginStart="8dp"
+        tools:layout_editor_absoluteX="440dp" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:text="@string/how_to_text"
-        android:textSize="20sp"
+        android:layout_marginTop="36dp"
         android:fontFamily="@font/robotomedium"
+        android:text="@string/how_to_text"
         android:textColor="@color/titleColor"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ex_image" />
 
@@ -111,13 +62,13 @@
         android:id="@+id/how_to"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/ralewayregular"
         android:textColor="@color/eighty_perc_black"
         android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ex_image" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <Button
         android:id="@+id/start_exercise_btn"
@@ -129,14 +80,12 @@
         android:background="@drawable/btn_rounded_primary"
         android:backgroundTint="@color/colorPrimary"
         android:fontFamily="@font/robotomedium"
-        android:textSize="18sp"
-        android:textColor="#fff"
         android:text="@string/start_exercise"
+        android:textColor="#fff"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/arrow"
-        app:layout_constraintVertical_bias="0.793" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/end_exercise_btn"
@@ -148,16 +97,14 @@
         android:background="@drawable/btn_rounded_red"
         android:backgroundTint="@color/colorRed"
         android:fontFamily="@font/robotomedium"
-        android:textSize="18sp"
+        android:text="@string/end_exercise"
         android:textColor="#fff"
 
-        android:text="@string/end_exercise"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/arrow"
-        app:layout_constraintVertical_bias="0.793" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/next_exercise_btn"
@@ -169,15 +116,13 @@
         android:background="@drawable/btn_rounded_green"
         android:backgroundTint="@color/colorGreen"
         android:fontFamily="@font/robotomedium"
-        android:textSize="18sp"
-        android:textColor="#fff"
         android:text="@string/next_exercise"
+        android:textColor="#fff"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/arrow"
-        app:layout_constraintVertical_bias="0.793" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
