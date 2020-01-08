@@ -70,9 +70,7 @@ public class WelcomeActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        if (currentUser != null) {
-            startActivity(new Intent(this, MainActivity.class));
-        } else {
+
 
 
             firebaseDB = FirebaseDB.getDatabase().getReference();
@@ -269,7 +267,7 @@ public class WelcomeActivity extends AppCompatActivity {
         }
 
 
-    }
+
 
     public static void slideView(View view,
                                  int currentHeight,

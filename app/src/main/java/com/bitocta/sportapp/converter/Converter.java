@@ -14,6 +14,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 public class Converter {
 
@@ -87,13 +88,31 @@ public class Converter {
     }
 
     @TypeConverter
-    public static  ArrayList<Pair<Training,Date>> fromStringHistory(String value){
-        Type listType = new TypeToken<Pair<Training,Date>>() {}.getType();
+    public static  HashMap<String,Date>  fromStringHistory(String value){
+        Type listType = new TypeToken<HashMap<String,Date>>() {}.getType();
         return new Gson().fromJson(value,listType);
     }
 
     @TypeConverter
-    public static String fromArrayListHistory(ArrayList<Pair<Training,Date>> list) {
+    public static String fromArrayListHistory(HashMap<String,Date> list) {
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+        return json;
+    }
+
+
+    @TypeConverter
+    public static HashMap<Double,Date> fromStringHistoryW(String value){
+        Type listType = new TypeToken<HashMap<Double,Date>>() {}.getType();
+        return new Gson().fromJson(value,listType);
+    }
+
+
+
+
+
+    @TypeConverter
+    public static String fromArrayListHistoryW(HashMap<Double,Date> list) {
         Gson gson = new Gson();
         String json = gson.toJson(list);
         return json;

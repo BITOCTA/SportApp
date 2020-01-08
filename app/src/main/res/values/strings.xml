@@ -69,5 +69,23 @@
     <string name="you_made_it">You made it!</string>
     <string name="go_to_progress">Go to progress</string>
 
+    <!--Statistics fragment -->
+    <string name="total">Total</string>
+    <string name="trainings">TRAININGS</string>
+    <string name="kcal">KCAL</string>
+    <string name="time">TIME</string>
+    <string name="history">History</string>
+    <string name="records">Records</string>
+    <string name="weight">Weight</string>
+    <string name="update_weight">Update weight</string>
+    <string name="kg">kg</string>
+    <string name="Monday_short">Mo</string>
+    <string name="Tuedsay_short">Tu</string>
+    <string name="Wednesday_short">We</string>
+    <string name="Thursday_short">Th</string>
+    <string name="Friday_short">Fr</string>
+    <string name="Satuday_short">Sa</string>
+    <string name="Sunday_short">Su</string>
+
 
 </resources>

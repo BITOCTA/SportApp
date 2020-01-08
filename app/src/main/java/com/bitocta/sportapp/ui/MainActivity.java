@@ -138,6 +138,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, PlansFragment.getInstance()).commit();
                 break;
             }
+            case R.id.statistics:{
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,StatisticsFragment.getInstance()).commit();
+                break;
+            }
         }
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;

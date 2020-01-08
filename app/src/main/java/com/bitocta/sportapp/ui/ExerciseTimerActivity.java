@@ -2,23 +2,19 @@ package com.bitocta.sportapp.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
+import android.util.Pair;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bitocta.sportapp.R;
 import com.bitocta.sportapp.UserRepo;
-import com.bitocta.sportapp.db.entity.Exercise;
 import com.bitocta.sportapp.db.entity.Plan;
 import com.bitocta.sportapp.db.entity.User;
 import com.bumptech.glide.Glide;
@@ -28,8 +24,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class ExerciseTimerActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
 
+public class ExerciseTimerActivity extends AppCompatActivity {
 
 
     TextView countDown;
@@ -78,17 +79,10 @@ public class ExerciseTimerActivity extends AppCompatActivity {
         userRef = UserRepo.getUserRef();
 
 
-
-
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 user = dataSnapshot.getValue(User.class);
-
-
-
-
-
 
 
                 updateExercise();
@@ -121,11 +115,10 @@ public class ExerciseTimerActivity extends AppCompatActivity {
                     btnStart.setActivated(false);
 
 
-
                     countDown.setVisibility(View.VISIBLE);
 
 
-                    countDownTimer = new CountDownTimer(plan.getSeconds()*1000, 1000) {
+                    countDownTimer = new CountDownTimer(plan.getSeconds() * 1000, 1000) {
                         @Override
                         public void onTick(long millisUntilFinished) {
 
@@ -155,8 +148,6 @@ public class ExerciseTimerActivity extends AppCompatActivity {
                 btnNext.setActivated(true);
 
                 countDownTimer.cancel();
-
-
 
 
             }
@@ -190,11 +181,10 @@ public class ExerciseTimerActivity extends AppCompatActivity {
 
             int seconds = user.getActiveTraining().getSetsOfExercises().get(day).get(pos).getSeconds();
 
-            if(seconds>60){
-                countDown.setText(user.getActiveTraining().getSetsOfExercises().get(day).get(pos).getSeconds()/60+ " minutes");
-            }
-            else{
-                countDown.setText(user.getActiveTraining().getSetsOfExercises().get(day).get(pos).getSeconds()+ " seconds");
+            if (seconds > 60) {
+                countDown.setText(user.getActiveTraining().getSetsOfExercises().get(day).get(pos).getSeconds() / 60 + " minutes");
+            } else {
+                countDown.setText(user.getActiveTraining().getSetsOfExercises().get(day).get(pos).getSeconds() + " seconds");
             }
 
             Plan firstExercise = user.getActiveTraining().getSetsOfExercises().get(day).get(pos);
@@ -204,11 +194,36 @@ public class ExerciseTimerActivity extends AppCompatActivity {
             exTitle.setText(firstExercise.getExercise().getName());
 
 
-
             exDescription.setText(firstExercise.getExercise().getDescription());
 
         } else {
             user.setDay(day + 1);
+            HashMap<String, Date> historyOfTrainings = user.getHistoryOfTrainings();
+            if (historyOfTrainings == null) {
+                historyOfTrainings = new HashMap<>();
+            }
+            historyOfTrainings.put(user.getActiveTraining().getName() + " " + day, new Date());
+            user.setHistoryOfTrainings(historyOfTrainings);
+
+
+            long totalCalories = 0;
+            double totalMinutes = 0;
+
+            for (int i = 0; i < user.getActiveTraining().getSetsOfExercises().get(day).size(); i++) {
+                totalCalories += ((double) user.getActiveTraining().getSetsOfExercises().get(day).get(i).getSeconds() / 60) * 8;
+                Log.d("TEST","calories " + totalCalories);
+                totalMinutes += ((double) user.getActiveTraining().getSetsOfExercises().get(day).get(i).getSeconds() / 60);
+                Log.d("TEST","minutes " + totalMinutes);
+            }
+
+
+
+
+
+            user.setTotalCalories(user.getTotalCalories() + totalCalories);
+            user.setTotalMinutes(user.getTotalMinutes() + totalMinutes);
+
+
             userRef.setValue(user);
             Intent intent = new Intent(getApplicationContext(), EndDayActivity.class);
             Bundle mBundle = new Bundle();

@@ -9,6 +9,9 @@ import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
 
 import lombok.Data;
 
@@ -46,8 +49,19 @@ public class User {
     @ColumnInfo(name = "plans")
     ArrayList<Training> plans;
 
-    @ColumnInfo(name = "history")
-    ArrayList<Pair<Training,Date>> history;
+
+    HashMap<String,Date> historyOfTrainings;
+
+    HashMap<Double,Date> historyOfWeight;
+
+
+    long totalCalories;
+
+    int totalTrainings;
+
+    double totalMinutes;
+
+
 
 
     public User() {
@@ -65,6 +79,19 @@ public class User {
         this.image_path = image_path;
         this.activeTraining=null;
     }
+
+    public User(String name, double weight, double height, Date dateOfBirth, String image_path, HashMap<String,Date> historyOfTrainings) {
+        this.name = name;
+        this.weight = weight;
+        this.height = height;
+        this.dateOfBirth = dateOfBirth;
+        this.image_path = image_path;
+        this.activeTraining=null;
+        this.historyOfTrainings = historyOfTrainings;
+    }
+
+
+
 
     public void setActiveTraining(Training activeTraining) {
         this.activeTraining = activeTraining;
