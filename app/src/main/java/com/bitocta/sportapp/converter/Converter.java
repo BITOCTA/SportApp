@@ -102,8 +102,8 @@ public class Converter {
 
 
     @TypeConverter
-    public static HashMap<Double,Date> fromStringHistoryW(String value){
-        Type listType = new TypeToken<HashMap<Double,Date>>() {}.getType();
+    public static HashMap<String,Double> fromStringHistoryW(String value){
+        Type listType = new TypeToken<HashMap<String,Double>>() {}.getType();
         return new Gson().fromJson(value,listType);
     }
 
@@ -112,7 +112,7 @@ public class Converter {
 
 
     @TypeConverter
-    public static String fromArrayListHistoryW(HashMap<Double,Date> list) {
+    public static String fromArrayListHistoryW(HashMap<String,Double> list) {
         Gson gson = new Gson();
         String json = gson.toJson(list);
         return json;

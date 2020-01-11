@@ -45,8 +45,12 @@ public class DayExercisesListAdapter extends RecyclerView.Adapter<DayExercisesLi
         title.setText(plan.getExercise().getName());
 
 
-
-        reps.setText(plan.getSeconds()/60 + " minutes");
+        if(plan.getSeconds()>60) {
+            reps.setText(plan.getSeconds() / 60 + " minutes");
+        }
+        else{
+            reps.setText(plan.getSeconds() + " seconds");
+        }
 
 
 

@@ -87,5 +87,8 @@
     <string name="Satuday_short">Sa</string>
     <string name="Sunday_short">Su</string>
 
+    <!--New weight dialog -->
+    <string name="input_new_weight">Input new weight</string>
+
 
 </resources>

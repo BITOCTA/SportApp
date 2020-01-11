@@ -45,6 +45,7 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -130,6 +131,8 @@ public class StartFragment extends Fragment implements DatePickerDialog.OnDateSe
                     user.setName(name);
                     user.setWeight(weight);
                     user.setHeight(height);
+
+
 
                     userRef.setValue(user);
 

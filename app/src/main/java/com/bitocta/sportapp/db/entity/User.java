@@ -52,7 +52,7 @@ public class User {
 
     HashMap<String,Date> historyOfTrainings;
 
-    HashMap<Double,Date> historyOfWeight;
+    HashMap<String,Double> historyOfWeight;
 
 
     long totalCalories;
@@ -60,6 +60,8 @@ public class User {
     int totalTrainings;
 
     double totalMinutes;
+
+    Date dateOfRegistration;
 
 
 
@@ -69,6 +71,7 @@ public class User {
 
     public User(String email) {
         this.email = email;
+        dateOfRegistration = new Date();
     }
 
     public User(String name, double weight, double height, Date dateOfBirth, String image_path) {
