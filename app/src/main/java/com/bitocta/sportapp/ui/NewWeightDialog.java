@@ -31,7 +31,7 @@ public class NewWeightDialog extends AppCompatDialogFragment {
     private DatabaseReference userRef;
     User user;
 
-    SimpleDateFormat sdf;
+
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class NewWeightDialog extends AppCompatDialogFragment {
 
 
         userRef = UserRepo.getUserRef();
-        sdf = new SimpleDateFormat("dd-MM-yyyy");
+
 
         builder.setView(view)
                 .setTitle(getString(R.string.input_new_weight))
@@ -66,9 +66,9 @@ public class NewWeightDialog extends AppCompatDialogFragment {
 
                                 if (historyOfWeight == null) {
                                     historyOfWeight = new HashMap<>();
-                                    historyOfWeight.put(sdf.format(user.getDateOfRegistration()), user.getWeight());
+                                    historyOfWeight.put(user.getDateOfRegistration().getTime()+"", user.getWeight());
                                 }
-                                historyOfWeight.put(sdf.format(new Date()), weight);
+                                historyOfWeight.put(user.getDateOfRegistration().getTime()+"", weight);
                                 user.setHistoryOfWeight(historyOfWeight);
 
                                 user.setWeight(weight);

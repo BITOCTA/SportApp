@@ -132,7 +132,9 @@ public class StartFragment extends Fragment implements DatePickerDialog.OnDateSe
                     user.setWeight(weight);
                     user.setHeight(height);
 
-
+                    HashMap<String, Double> historyOfWeight = new HashMap<>();
+                    historyOfWeight.put(new Date().getTime()+"",weight);
+                    user.setHistoryOfWeight(historyOfWeight);
 
                     userRef.setValue(user);
 
