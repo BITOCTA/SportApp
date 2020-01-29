@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -38,8 +39,11 @@ public class ExerciseTimerActivity extends AppCompatActivity {
 
     ImageView exImage;
     TextView exTitle;
+    TextView totalCaloriesText;
+
 
     TextView exDescription;
+    TextView exNumber;
 
     Button btnStart;
     Button btnEnd;
@@ -51,10 +55,11 @@ public class ExerciseTimerActivity extends AppCompatActivity {
 
     private User user;
 
-    CountDownTimer countDownTimer;
+    CountDownTimer countDownTimer,caloriesTimer;
 
     int day;
     int pos;
+    double totalCalories=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +70,11 @@ public class ExerciseTimerActivity extends AppCompatActivity {
         countDown = findViewById(R.id.count_down_text);
 
         exImage = findViewById(R.id.ex_image);
+        exImage.setClipToOutline(true);
         exTitle = findViewById(R.id.ex_title);
+        exNumber = findViewById(R.id.ex_number);
+        totalCaloriesText = findViewById(R.id.total_calories_text);
+
 
         exDescription = findViewById(R.id.how_to);
 
@@ -77,6 +86,8 @@ public class ExerciseTimerActivity extends AppCompatActivity {
 
         firebaseDB = FirebaseDatabase.getInstance().getReference();
         userRef = UserRepo.getUserRef();
+
+        MediaPlayer ring= MediaPlayer.create(ExerciseTimerActivity.this,R.raw.jut);
 
 
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -124,6 +135,28 @@ public class ExerciseTimerActivity extends AppCompatActivity {
 
                             countDown.setText("" + millisUntilFinished / 1000);
 
+
+                        }
+
+                        @Override
+                        public void onFinish() {
+                            ring.start();
+                            btnEnd.setVisibility(View.INVISIBLE);
+                            btnEnd.setActivated(false);
+                            btnNext.setVisibility(View.VISIBLE);
+                            btnNext.setActivated(true);
+
+
+                            countDownTimer.cancel();
+                            caloriesTimer.cancel();
+
+                        }
+                    };
+                    caloriesTimer = new CountDownTimer(plan.getSeconds()*1000, 5000) {
+                        @Override
+                        public void onTick(long millisUntilFinished) {
+                            totalCalories=totalCalories+0.66;
+                            totalCaloriesText.setText(String.format("%.2f", totalCalories));
                         }
 
                         @Override
@@ -132,6 +165,7 @@ public class ExerciseTimerActivity extends AppCompatActivity {
                         }
                     };
                     countDownTimer.start();
+                    caloriesTimer.start();
 
                 }
 
@@ -141,13 +175,15 @@ public class ExerciseTimerActivity extends AppCompatActivity {
         btnEnd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ring.start();
                 btnEnd.setVisibility(View.INVISIBLE);
                 btnEnd.setActivated(false);
                 btnNext.setVisibility(View.VISIBLE);
                 btnNext.setActivated(true);
 
+
                 countDownTimer.cancel();
+                caloriesTimer.cancel();
 
 
             }
@@ -178,6 +214,7 @@ public class ExerciseTimerActivity extends AppCompatActivity {
 
         if (pos < user.getActiveTraining().getSetsOfExercises().get(day).size()) {
 
+            exNumber.setText(getString(R.string.exercise_number).replaceFirst("number1",pos+1+"").replaceFirst("number2",user.getActiveTraining().getSetsOfExercises().get(day).size()+""));
 
             int seconds = user.getActiveTraining().getSetsOfExercises().get(day).get(pos).getSeconds();
 
@@ -186,6 +223,8 @@ public class ExerciseTimerActivity extends AppCompatActivity {
             } else {
                 countDown.setText(user.getActiveTraining().getSetsOfExercises().get(day).get(pos).getSeconds() + " seconds");
             }
+
+            totalCaloriesText.setText(String.format("%.2f",totalCalories));
 
             Plan firstExercise = user.getActiveTraining().getSetsOfExercises().get(day).get(pos);
 

@@ -3,6 +3,7 @@ package com.bitocta.sportapp.ui;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import com.bitocta.sportapp.R;
 import com.bitocta.sportapp.UserRepo;
 import com.bitocta.sportapp.db.entity.User;
+import com.bitocta.sportapp.util.WeightFilter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,6 +41,10 @@ public class NewWeightDialog extends AppCompatDialogFragment {
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.new_weight_dialog, null);
+        editWeight = view.findViewById(R.id.edit_new_weight);
+
+        editWeight.setText(String.valueOf(getArguments().getDouble(StatisticsFragment.CURRENT_WEIGHT_TAG)));
+        editWeight.setFilters(new InputFilter[] {new WeightFilter(3,2)});
 
 
         userRef = UserRepo.getUserRef();
@@ -62,13 +68,14 @@ public class NewWeightDialog extends AppCompatDialogFragment {
                                 user = dataSnapshot.getValue(User.class);
 
 
+
                                 HashMap<String, Double> historyOfWeight = user.getHistoryOfWeight();
 
                                 if (historyOfWeight == null) {
                                     historyOfWeight = new HashMap<>();
                                     historyOfWeight.put(user.getDateOfRegistration().getTime()+"", user.getWeight());
                                 }
-                                historyOfWeight.put(user.getDateOfRegistration().getTime()+"", weight);
+                                historyOfWeight.put(new Date().getTime()+"", weight);
                                 user.setHistoryOfWeight(historyOfWeight);
 
                                 user.setWeight(weight);

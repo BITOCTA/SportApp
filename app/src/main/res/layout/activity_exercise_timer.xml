@@ -5,45 +5,100 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.ExerciseTimerActivity"
+    android:id="@+id/activity_exercise_timer"
 >
 
-    <TextView
-        android:id="@+id/count_down_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/robotobold"
-        android:textColor="@color/titleColor"
-        android:textSize="42sp"
-        app:layout_constraintBottom_toTopOf="@+id/ex_image"
+    <View
+        android:id="@+id/view2"
+        android:layout_width="150dp"
+        android:layout_height="75dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/btn_rounded_primary_light"
+        app:layout_constraintBottom_toTopOf="@+id/start_exercise_btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.13"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <View
+        android:id="@+id/view"
+        android:layout_width="150dp"
+        android:layout_height="75dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/btn_rounded_primary_light"
+        app:layout_constraintBottom_toTopOf="@+id/start_exercise_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.87"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
     <ImageView
         android:id="@+id/ex_image"
         android:layout_width="match_parent"
         android:layout_height="250dp"
+        android:background="@drawable/rounded_corners"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.436" />
+        app:layout_constraintVertical_bias="0.247" />
 
     <TextView
         android:id="@+id/ex_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/robotobold"
+        android:maxLines="1"
+        android:textAlignment="center"
+        android:textColor="@color/titleColor"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ex_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:fontFamily="@font/robotoregular"
+        android:textSize="18sp"
+        android:textAlignment="center"
+        android:textColor="@color/sixty_perc_black"
+        app:layout_constraintTop_toBottomOf="@id/ex_title"
+        android:layout_marginTop="4dp"
+        />
+
+    <TextView
+        android:id="@+id/total_calories_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:fontFamily="@font/robotomedium"
+        android:textAlignment="center"
         android:textColor="#FFF"
-        android:textSize="24sp"
-        app:layout_constraintTop_toTopOf="@id/ex_image"
-        app:layout_constraintStart_toStartOf="@id/ex_image"
-        android:layout_marginStart="8dp"
-        tools:layout_editor_absoluteX="440dp" />
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toTopOf="@+id/view" />
+
+    <TextView
+        android:id="@+id/count_down_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/robotomedium"
+        android:textAlignment="center"
+        android:textColor="#FFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/view2"
+        app:layout_constraintEnd_toEndOf="@+id/view2"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="@+id/view2" />
 
     <TextView
         android:id="@+id/textView3"
@@ -63,48 +118,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:fontFamily="@font/ralewayregular"
+        android:fontFamily="@font/robotoregular"
         android:textColor="@color/eighty_perc_black"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-    <Button
-        android:id="@+id/start_exercise_btn"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="256dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/btn_rounded_primary"
-        android:backgroundTint="@color/colorPrimary"
-        android:fontFamily="@font/robotomedium"
-        android:text="@string/start_exercise"
-        android:textColor="#fff"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/end_exercise_btn"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="256dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/btn_rounded_red"
-        android:backgroundTint="@color/colorRed"
-        android:fontFamily="@font/robotomedium"
-        android:text="@string/end_exercise"
-        android:textColor="#fff"
-
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/next_exercise_btn"
@@ -113,6 +133,7 @@
         android:layout_height="45dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
+        android:layout_marginBottom="28dp"
         android:background="@drawable/btn_rounded_green"
         android:backgroundTint="@color/colorGreen"
         android:fontFamily="@font/robotomedium"
@@ -122,7 +143,69 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/start_exercise_btn"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="256dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/btn_rounded_primary"
+        android:backgroundTint="@color/colorPrimary"
+        android:fontFamily="@font/robotomedium"
+        android:text="@string/start_exercise"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/end_exercise_btn"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="256dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/btn_rounded_red"
+        android:backgroundTint="@color/colorRed"
+        android:fontFamily="@font/robotomedium"
+        android:text="@string/end_exercise"
+
+        android:textColor="#fff"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="4dp"
+        android:backgroundTint="#FFF"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toTopOf="@+id/view"
+        app:srcCompat="@drawable/ic_fire" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view2"
+        app:layout_constraintStart_toStartOf="@+id/view2"
+        app:layout_constraintTop_toTopOf="@+id/view2"
+        app:srcCompat="@drawable/ic_av_timer_24px" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

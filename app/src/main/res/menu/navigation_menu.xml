@@ -4,11 +4,10 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-    <item android:id="@+id/progress" android:title="@string/progress"/>
+    <item android:id="@+id/progress" android:title="@string/progress" android:tag="progress"/>
     <item android:id="@+id/plans" android:title="@string/plans"/>
-    <item android:id="@+id/my_plans" android:title="@string/my_plans"/>
     <item android:id="@+id/statistics" android:title="@string/statistics"/>
-    <item android:id="@+id/settings" android:title="@string/settings"/>
+
 
     </group>
 

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.EndDayActivity">
+    tools:context=".ui.EndDayActivity"
+    android:id="@+id/activity_end_day">
 
 
     <TextView
@@ -66,12 +67,12 @@
         android:id="@+id/go_to_progress_btn"
         android:layout_width="275dp"
         android:layout_height="45dp"
-        android:text="@string/go_to_progress"
-        android:layout_marginTop="140dp"
+        android:layout_marginBottom="50dp"
         android:background="@drawable/btn_rounded_primary"
+        android:text="@string/go_to_progress"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/trophy"></Button>
+        app:layout_constraintStart_toStartOf="parent"></Button>
 
 
 
